@@ -128,7 +128,7 @@ export async function createPage(
         // use UTC time + 8 hours
         date: {
           start: new Date(new Date().getTime() + 8 * 3600 * 1000).toISOString(),
-          time_zone: "Asia/Shanghai",
+          time_zone: "America/Chicago",
         },
       },
     },

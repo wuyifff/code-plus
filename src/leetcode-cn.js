@@ -9,23 +9,33 @@ console.log("CodePlus leetcode ok");
 
 let from = "Leetcode";
 let url = window.location.href;
-let full_title = $("[data-cypress='QuestionTitle']").text().trim();
-let title_regex = /(.+)\.(.*)/;
-let id = full_title.match(title_regex)[1].trim();
-let title = full_title.match(title_regex)[2].trim();
+let head = $("#qd-content").text().trim();
+console.log(head);
+
+let title_regex = /[\u4e00-\u9fff]+(\d+)\. ([\w ]+)([\u4e00-\u9fff]+)/;
+let id = head.match(title_regex)[1].trim();
+let title = head.match(title_regex)[2].trim();
+let difficulty = head.match(title_regex)[3].trim();
+let full_title = id + '.' + title;
 let description = html2md($("div[class^='content']").html(), from);
+console.log(id);
+console.log(title);
 
 // already get code in background.js
 let code = document.body.getAttribute("data-fullcode");
 
 let code_language = $("#lang-select").children("span").text().toLowerCase();
 let tags = [];
-$("[class^='topic-tags']")
-  .children("a")
-  .each(function () {
-    tags.push($(this).text().trim());
+const getTags = $('[href]').filter(function() {
+    const hrefValue = $(this).attr('href');
+    const regex = /^\/tag\//; // 正则表达式：以 /tag/ 开头
+    return regex.test(hrefValue);
   });
-let difficulty = $("[data-degree]").text().trim();
+
+getTags.each(function() {
+    const tag = $(this).text();
+    tags.push(tag);
+});
 
 let info = {
   from,
