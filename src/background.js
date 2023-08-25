@@ -13,7 +13,7 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.action.onClicked.addListener((tab) => {
   let acwing_pattern =
     /.*www.acwing.com\/problem\/content(\/description)?\/(\d+).*/;
-  let leetcodecn_pattern = /.*leetcode.cn\/problems\/[^\/]*\/$/;
+  let leetcodecn_pattern = /.*leetcode.cn\/problems\/[^\/]*\/(?:description\/)?$/;
   let matiji_pattern = /.*matiji.net\/.*\/$/;
 
   if (acwing_pattern.test(tab.url)) {
@@ -65,7 +65,7 @@ chrome.action.onClicked.addListener((tab) => {
       target: { tabId: tab.id },
     });
   } else {
-    console.warn("CodePlus 不支持当前页面");
+    console.log("CodePlus 不支持当前页面");
   }
 });
 
